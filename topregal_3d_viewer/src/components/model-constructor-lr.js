@@ -34,19 +34,30 @@ function constructLR(scene, configurator, clonedObjects, sceneObject, loop) {
     }
 
     measurementObjs = [];    // Support both single rack (legacy) and multiple rack groups (new)
-    const rackGroups = configurator.rackGroups || [{ offsetX: 0, offsetZ: 0, units: configurator.units }];
+    const rackGroups = configurator.rackGroups || [{ 
+        doubleSided: configurator.doubleSided || false,
+        depth: configurator.depth || 120,
+        offsetX: 0, 
+        offsetZ: 0, 
+        units: configurator.units 
+    }];
     
     // Calculate each group's width and overall scene bounds
     let groupWidths = [];
     let minX = Infinity, maxX = -Infinity;
     let minZ = Infinity, maxZ = -Infinity;
     rackGroups.forEach(group => {
+        // Ensure each group has default values
+        group.doubleSided = group.doubleSided !== undefined ? group.doubleSided : false;
+        group.depth = group.depth || 120;
+        group.offsetX = group.offsetX || 0;
+        group.offsetZ = group.offsetZ || 0;
+        
         let groupWidth = 0;
         for (let unitIndex = 0; unitIndex < group.units.length; unitIndex++) {
             groupWidth += (group.units[unitIndex].width + standWidth) / 100;
         }
-        groupWidth += (standWidth / 100);
-        groupWidths.push(groupWidth);
+        groupWidth += (standWidth / 100);        groupWidths.push(groupWidth);
         
         // Calculate scene bounds
         const groupMinX = (group.offsetX || 0) - groupWidth / 2;
@@ -62,32 +73,40 @@ function constructLR(scene, configurator, clonedObjects, sceneObject, loop) {
     // Calculate total scene width for measurements
     totalWidth = maxX - minX;    var measurement = totalWidth * 100 + 6;
     
-    dynamicText = new dynText(scene, measurement, 58, totalWidth, 0.01, new Vector3((minX + maxX) / 2, 0.01, maxZ + (configurator.depth / 200) + 0.8), 0, -MathUtils.degToRad(90), "#556879", 1, null, " cm", loop, yOffset);
+    dynamicText = new dynText(scene, measurement, 58, totalWidth, 0.01, new Vector3((minX + maxX) / 2, 0.01, maxZ + 1.2 + 0.8), 0, -MathUtils.degToRad(90), "#556879", 1, null, " cm", loop, yOffset);
     dynamicText.addText();
     measurementObjs.push(dynamicText);
 
     loop.updatables.push(dynamicText);
 
-    // add text for depth measurement
-    var rackDepth;
-    var depthOffset;
-
-    if (configurator.doubleSided) {
-        measurement = (configurator.depth) * 2 + 20;
-        rackDepth = (20 + configurator.depth * 2) / 100;
-        depthOffset = (20 + configurator.depth) / 200;
-    }
-    else {
-        measurement = configurator.depth;
-        rackDepth = configurator.depth / 100;
-        depthOffset = 0;
-    }
-    
-    dynamicText2 = new dynText(scene, measurement, 58, rackDepth, 0.01, new Vector3(minX - 0.8, 0.01, (minZ + maxZ) / 2 - depthOffset), -MathUtils.degToRad(90), 0, "#556879", 1, null, " cm", loop, yOffset);
-    dynamicText2.addText();
-    measurementObjs.push(dynamicText2);
-
-    loop.updatables.push(dynamicText2);
+    // Add depth measurements for each group with different depths
+    let depthMeasurements = new Map();
+    rackGroups.forEach(group => {
+        const depth = group.depth;
+        const doubleSided = group.doubleSided;
+        const key = `${depth}_${doubleSided}`;
+        
+        if (!depthMeasurements.has(key)) {
+            let measurement, rackDepth, depthOffset;
+            
+            if (doubleSided) {
+                measurement = depth * 2 + 20;
+                rackDepth = (20 + depth * 2) / 100;
+                depthOffset = (20 + depth) / 200;
+            } else {
+                measurement = depth;
+                rackDepth = depth / 100;
+                depthOffset = 0;
+            }
+            
+            const dynamicText2 = new dynText(scene, measurement, 58, rackDepth, 0.01, new Vector3(minX - 0.8, 0.01, (group.offsetZ || 0) - depthOffset), -MathUtils.degToRad(90), 0, "#556879", 1, null, " cm", loop, yOffset);
+            dynamicText2.addText();
+            measurementObjs.push(dynamicText2);
+            loop.updatables.push(dynamicText2);
+            
+            depthMeasurements.set(key, true);
+        }
+    });
 
     // add text for height measurement
     var heightArray = [];
@@ -102,22 +121,22 @@ function constructLR(scene, configurator, clonedObjects, sceneObject, loop) {
     dynamicText3.addText();
     measurementObjs.push(dynamicText3);
 
-    loop.updatables.push(dynamicText3);    // Position each rack group absolutely (restored) and build components
+    loop.updatables.push(dynamicText3);    // Position each rack group absolutely and build components
     rackGroups.forEach((group, i) => {
         const groupOffsetX = group.offsetX || 0;
         const groupOffsetZ = group.offsetZ || 0;
         const groupWidth = groupWidths[i];
         const centerXGroup = groupWidth / 2;
-        const centerY = configurator.depth / 200;
+        const centerY = group.depth / 200;  // Use group-specific depth
         let groupWidthOffset = 0;
 
         group.units.forEach((unit, standIndex) => {
             const xPos = -centerXGroup + groupOffsetX + groupWidthOffset;
 
             // left stand
-            stand = scene.getObjectByName(`Stand_${unit.height}_${configurator.depth}`);
+            stand = scene.getObjectByName(`Stand_${unit.height}_${group.depth}`);  // Use group-specific depth
             addObject(stand, new Vector3(xPos, 0, groupOffsetZ), scene, clonedObjects);
-            if (configurator.doubleSided) {
+            if (group.doubleSided) {  // Use group-specific doubleSided
                 const spacer = scene.getObjectByName("Spacer_20");
                 addObject(spacer, new Vector3(xPos, unit.height/120, -centerY - 0.1 + groupOffsetZ), scene);
                 addObject(spacer, new Vector3(xPos, unit.height/200, -centerY - 0.1 + groupOffsetZ), scene);
@@ -134,7 +153,7 @@ function constructLR(scene, configurator, clonedObjects, sceneObject, loop) {
 
                 if (traverse) {
                     if (shelfUnit.deck === 'inclined') {
-                        traverseOffset = configurator.depth === 60 ? 0.2 : 0.27;
+                        traverseOffset = group.depth === 60 ? 0.2 : 0.27;  // Use group-specific depth
                         addObject(kanban, new Vector3(xPos, shelfYOffset + 0.15, centerY + groupOffsetZ), scene, clonedObjects);
                     }
                     addObject(traverse, new Vector3(xPos, shelfYOffset, centerY + groupOffsetZ), scene, clonedObjects);
@@ -143,11 +162,11 @@ function constructLR(scene, configurator, clonedObjects, sceneObject, loop) {
 
                 let shelfObj = null;
                 switch (shelfUnit.deck) {
-                    case 'wood': shelfObj = scene.getObjectByName(`Shelf_wood_${unit.width}_${configurator.depth}`); break;
-                    case 'steel': shelfObj = scene.getObjectByName(`Shelf_steel_${unit.width}_${configurator.depth}`); break;
-                    case 'inclined': shelfObj = scene.getObjectByName(`Shelf_kanban_${unit.width}_${configurator.depth}`); break;
-                    case 'multiplex': shelfObj = scene.getObjectByName(`Shelf_multi_${unit.width}_${configurator.depth}`); break;
-                    case 'grid': shelfObj = scene.getObjectByName(`Shelf_grid_${unit.width}_${configurator.depth}`); break;
+                    case 'wood': shelfObj = scene.getObjectByName(`Shelf_wood_${unit.width}_${group.depth}`); break;  // Use group-specific depth
+                    case 'steel': shelfObj = scene.getObjectByName(`Shelf_steel_${unit.width}_${group.depth}`); break;
+                    case 'inclined': shelfObj = scene.getObjectByName(`Shelf_kanban_${unit.width}_${group.depth}`); break;
+                    case 'multiplex': shelfObj = scene.getObjectByName(`Shelf_multi_${unit.width}_${group.depth}`); break;
+                    case 'grid': shelfObj = scene.getObjectByName(`Shelf_grid_${unit.width}_${group.depth}`); break;
                 }
                 if (shelfObj) addObject(shelfObj, new Vector3(xPos, shelfYOffset, groupOffsetZ), scene, clonedObjects);
             }
@@ -157,9 +176,9 @@ function constructLR(scene, configurator, clonedObjects, sceneObject, loop) {
 
             // right stand
             if (standIndex === unit.shelves.length - 1 || (unit.height >= (group.units[standIndex+1]?.height || 0))) {
-                const rightStand = scene.getObjectByName(`Stand_${unit.height}_${configurator.depth}`);
+                const rightStand = scene.getObjectByName(`Stand_${unit.height}_${group.depth}`);  // Use group-specific depth
                 addObject(rightStand, new Vector3(-centerXGroup + groupOffsetX + groupWidthOffset, 0, groupOffsetZ), scene, clonedObjects);
-                if (configurator.doubleSided) {
+                if (group.doubleSided) {  // Use group-specific doubleSided
                     const spacer = scene.getObjectByName("Spacer_20");
                     addObject(spacer, new Vector3(-centerXGroup + groupOffsetX + groupWidthOffset, unit.height/120, -centerY - 0.1 + groupOffsetZ), scene);
                     addObject(spacer, new Vector3(-centerXGroup + groupOffsetX + groupWidthOffset, unit.height/200, -centerY - 0.1 + groupOffsetZ), scene);
@@ -167,23 +186,26 @@ function constructLR(scene, configurator, clonedObjects, sceneObject, loop) {
                 }
             }
         });
+          // Handle double-sided mirror logic for each group independently
+        if (group.doubleSided) {
+            const centerY = group.depth / 200;
+            clonedObjects.forEach(obj => {
+                // Only mirror objects that belong to this group
+                // Check if object is within this group's Z range (including front and back positions)
+                const minZ = groupOffsetZ - centerY - 0.1;
+                const maxZ = groupOffsetZ + centerY + 0.1;
+                if (obj.position.z >= minZ && obj.position.z <= maxZ && !obj.name.includes('Plank')) {
+                    const copy = obj.clone();
+                    copy.applyMatrix4(new Matrix4().makeScale(1,1,-1));
+                    copy.position.z = obj.position.z - centerY*2 - 0.2;
+                    scene.getObjectByName('Scene').add(copy);
+                }
+            });
+        }
     });
 
-    // restore double-sided mirror logic
-    if (configurator.doubleSided) {
-        const centerY = configurator.depth / 200;
-        clonedObjects.forEach(obj => {
-            if (!obj.name.includes('Plank')) {
-                const copy = obj.clone();
-                copy.applyMatrix4(new Matrix4().makeScale(1,1,-1));
-                copy.position.z = obj.position.z - centerY*2 - 0.2;
-                scene.getObjectByName('Scene').add(copy);
-            }
-        });
-    }
-
     // Skip old positioning code to prevent duplicate/scattered rendering
-    return;  
+    return;
 }
 
 // add a model to the scene

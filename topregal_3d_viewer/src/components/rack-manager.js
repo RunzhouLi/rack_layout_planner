@@ -1,4 +1,3 @@
-
 class RackManager {
     constructor(engine, initialConfig = null) {
         this.engine = engine;
@@ -18,6 +17,8 @@ class RackManager {
         this.positionZInput = document.getElementById('positionZ');
         this.rackUnitsInput = document.getElementById('rackUnits');
         this.unitWidthSelect = document.getElementById('unitWidth');
+        this.doubleSidedCheckbox = document.getElementById('doubleSided');
+        this.depthSelect = document.getElementById('rackDepth');
         this.addRackBtn = document.getElementById('addRackBtn');
         this.clearAllBtn = document.getElementById('clearAllBtn');
         this.rackList = document.getElementById('rackList');
@@ -72,6 +73,8 @@ class RackManager {
         const positionZ = parseFloat(this.positionZInput.value) || 0;
         const unitCount = parseInt(this.rackUnitsInput.value) || 7;
         const unitWidth = parseInt(this.unitWidthSelect.value) || 220;
+        const doubleSided = this.doubleSidedCheckbox ? this.doubleSidedCheckbox.checked : false;
+        const depth = this.depthSelect ? parseInt(this.depthSelect.value) || 120 : 120;
 
         // Create units array
         const units = [];
@@ -84,7 +87,9 @@ class RackManager {
             id: this.nextRackId++,
             offsetX: positionX,
             offsetZ: positionZ,
-            units: units
+            units: units,
+            doubleSided: doubleSided,
+            depth: depth
         };
 
         this.rackGroups.push(rackGroup);
@@ -135,7 +140,9 @@ class RackManager {
             rackInfo.innerHTML = `
                 <strong>Rack ${group.id}</strong><br>
                 Position: (${group.offsetX}, ${group.offsetZ})m<br>
-                Units: ${group.units.length}
+                Units: ${group.units.length}<br>
+                Double Sided: ${group.doubleSided ? 'Yes' : 'No'}<br>
+                Depth: ${group.depth}cm
             `;
             
             const removeBtn = document.createElement('button');
@@ -156,7 +163,9 @@ class RackManager {
             rackGroups: this.rackGroups.map(group => ({
                 offsetX: group.offsetX,
                 offsetZ: group.offsetZ,
-                units: group.units
+                units: group.units,
+                doubleSided: group.doubleSided,
+                depth: group.depth
             }))
         };
 
@@ -172,7 +181,9 @@ class RackManager {
             rackGroups: this.rackGroups.map(group => ({
                 offsetX: group.offsetX,
                 offsetZ: group.offsetZ,
-                units: group.units
+                units: group.units,
+                doubleSided: group.doubleSided,
+                depth: group.depth
             }))
         };
     }

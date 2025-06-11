@@ -1,9 +1,9 @@
 {
   "type": "lr",
-  "doubleSided": true,
-  "depth": 120,
   "rackGroups": [
     {
+      "doubleSided": true,
+      "depth": 120,
       "offsetX": 0,
       "offsetZ": 0,
       "units": [
@@ -66,6 +66,8 @@
       ]
     },
     {
+      "doubleSided": true,
+      "depth": 120,
       "offsetX": 0,
       "offsetZ": 5,
       "units": [
