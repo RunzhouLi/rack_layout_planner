@@ -13,6 +13,7 @@ import { createLight } from "../components/light.js";
 import { constructModel } from "../components/model-constructor.js";
 import { windowResize } from "../components/windowResize.js";
 import { Composer } from "../system/Composer.js";
+import { WarehouseScene } from "../components/warehouse-scene.js";
 
 
 export default class Engine {
@@ -38,17 +39,18 @@ export default class Engine {
         this.loadingScreen = loadApp(this.modalSelector);
         this.loop = new Loop(this.camera, this.scene, this.renderer, this.controls, this.viewerWidth, this.viewerHeight, this.appClassName);
         this.light = createLight(this.scene);
-        this.renderWindow = document.querySelector(this.appClassName);
-        this.composer = new Composer(this.scene, this.camera, this.renderer, this.loop);
+        this.renderWindow = document.querySelector(this.appClassName);        this.composer = new Composer(this.scene, this.camera, this.renderer, this.loop);
         this.raycaster = new Raycast(this.scene, this.camera, this.composer, this.renderer, this.loop);
         this.windowResize = windowResize(this.camera, this.renderer, this.renderWindow, this.viewerWidth, this.viewerHeight, this.composer);
 
-        // build dom with renderer and annotations
-        document.querySelector(this.appClassName).appendChild(this.renderer.domElement);
+        // Initialize warehouse scene
+        this.warehouseScene = new WarehouseScene(this.scene, this.camera);
 
-        // event listener for control interactions
+        // build dom with renderer and annotations
+        document.querySelector(this.appClassName).appendChild(this.renderer.domElement);        // event listener for control interactions
         this.controls.addEventListener("start", this.cancel.bind(this), false);
         this.controls.addEventListener("end", this.pause.bind(this), false);
+        this.controls.addEventListener("change", this.updateWarehouseVisibility.bind(this), false);
 
         // push controls to the loop function
         this.loop.updatables.push(this.controls);
@@ -67,11 +69,29 @@ export default class Engine {
     // pause orbit controls
     pause() {
         this.controls.autoRotate = false;
-    }
-
-    // cancel the automatic cam tween
+    }    // cancel the automatic cam tween
     cancel() {
         this.loop.target = null;
+    }
+
+    // Update warehouse wall visibility based on camera position
+    updateWarehouseVisibility() {
+        if (this.warehouseScene) {
+            this.warehouseScene.updateWallVisibility();
+        }
+    }    // Load warehouse configuration
+    async loadWarehouse(configPath) {
+        if (this.warehouseScene) {
+            await this.warehouseScene.loadWarehouseConfig(configPath);
+            this.updateWarehouseVisibility(); // Initial visibility update
+        }
+    }
+
+    // Set warehouse wall visibility mode
+    setWarehouseVisibilityMode(useManual) {
+        if (this.warehouseScene) {
+            this.warehouseScene.setVisibilityMode(useManual);
+        }
     }
 
     load(configurator) {

@@ -1,0 +1,21 @@
+{
+  "warehouse": {
+    "name": "默认仓库",
+    "dimensions": {
+      "length": 15,
+      "width": 40,
+      "height": 4.5
+    },
+    "wall": {
+      "color": "#7D7D7D",
+      "material": "concrete",
+      "opacity": 0.8
+    },
+    "position": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "description": "标准矩形仓库配置，长40米(X轴)，宽15米(Z轴)，高4.5米"
+  }
+}
