@@ -1,0 +1,18 @@
+{
+  "devDependencies": {
+    "css-loader": "^6.8.1",
+    "html-webpack-plugin": "^5.5.0",
+    "style-loader": "^3.3.2",
+    "webpack": "^5.99.9",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^4.15.0"
+  },
+  "dependencies": {
+    "three": "^0.177.0"
+  },
+  "scripts": {
+    "start": "webpack serve --config webpack.config.js --open",
+    "build": "webpack --config webpack.config.js",
+    "serve": "python3 -m http.server 8080"
+  }
+}

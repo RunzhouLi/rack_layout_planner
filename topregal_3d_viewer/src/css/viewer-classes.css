@@ -1,0 +1,203 @@
+/* MAIN APP/ GLOBAL CSS */
+
+/* main container of the app */
+.viewer-app {
+    box-sizing: border-box;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    position: relative;
+    overflow: hidden;
+    font-family: "Helvetica Neue LT Pro-BdCn",Helvetica,Arial,sans-serif;
+    display: flex;
+    flex-direction: column-reverse;
+    margin-bottom: 10px;
+}
+
+/* main frame of the app */
+canvas {
+    display: block;
+}
+
+/* a button to close the model window */
+.cancel-button {
+    position: absolute;
+    border: 0;
+    right: 16px;
+    top: 16px;
+    width: 26px;
+    height: 26px;
+    background-color: #E64011;
+    content: "\00d7";
+    line-height: 26px;
+    padding: 0 2px;
+    border-radius: 3px;
+    text-align: center;
+    font-weight: normal;
+    cursor: pointer;
+}
+
+.cancel-button::before {
+    content: 'x';
+    color: #fff;
+    font-weight: 300;
+    font-family: Arial, sans-serif;
+}
+
+/* LOADING SCREEN */
+
+/* container for loading display */
+#progress-container {
+    display: flex;
+    position: absolute;
+    width: 150px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    justify-content: center;
+    align-items: center;
+}
+
+/* loading display progress bar */
+#progress-bar {
+    display: none;
+    background: #043572;
+    align-items: center;
+}
+
+/* loading display percentage text */
+#percentage-text {
+    font-family: Helvetica, sans-serif;
+    color: #043572;
+    left: 50%;
+    font-size: 32px;
+    font-weight: bold;
+}
+
+/* frame for loading display */
+#loading-screen {
+	position: absolute;
+	z-index: 2;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: #ffffff;
+	opacity: 1;
+ 	transition: 1s opacity;
+}
+
+/* loading display fade */
+#loading-screen.fade-out {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* loading display moving elements */
+#loader {
+    display: block;
+    position: relative;
+    left: 50%;
+    top: 50%;
+    width: 150px;
+    height: 150px;
+    margin: -75px 0 0 -75px;
+    border-radius: 50%;
+    border: 12px solid transparent;
+    border-top-color: #043572;
+    -webkit-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
+    box-sizing: border-box;
+}
+
+#videoloader {
+    display: block;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 150px;
+    height: 150px;
+    margin: -75px 0 0 -75px;
+    border-radius: 50%;
+    border: 12px solid transparent;
+    border-top-color: #ffffff;
+    -webkit-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
+    box-sizing: border-box;
+}
+
+@-webkit-keyframes spin {
+    0%   {
+        -webkit-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+@keyframes spin {
+    0%   {
+        -webkit-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+/* TOOLTIP ICONS */
+
+/* mouse tooltip icons */
+#tooltip-mouse {
+    position: absolute;
+    bottom: 32px;
+    left: 32px;
+    height: 100px;
+    width: 125px;
+    border: solid;
+    border-color: #55687984;
+    border-radius: 10px;
+    padding: 10px;
+    opacity: 50%;
+    background-size: cover;
+}
+
+#tooltip-mouse .hide {
+    visibility: hidden;
+}
+
+/* Comment out missing tooltip icons to avoid build errors */
+/* .tooltip-icon {
+    background-image: url('../../img/tooltip_white.svg');
+}
+.tooltip-icon.grey {
+    background-image: url('../../img/tooltip_grey.svg');
+} */
+
+.measurement-text {
+    position: absolute;
+    width: auto;
+    background-color: #556879;
+    display: block;
+    text-align: left;
+    top: 50%;
+    transform: translate(0, -50%);
+    z-index: 9999;
+    color: white;
+    border-radius: 4px;
+    font-size: 14px;
+    line-height: 12px;
+    font-weight: bold;
+    pointer-events: none;
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 6px;
+    transition: opacity 0.2s;
+}

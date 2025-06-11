@@ -1,0 +1,223 @@
+/* CANOPY CONFIGURATOR */
+
+/* main container for configuration menue */
+.canopy-config-menue {
+    position: relative;
+    width: 550px;
+    height: 83px;
+    top: 0px;
+    background-color: #EDEFF1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 0px 3px 3px #0000004D;
+    border-radius: 3px;
+    margin-bottom: 10px;
+}
+
+/* poi connection to tooltip hover */
+.canopy-config-menue .config-main-title {
+    font-family: "Helvetica Neue LT Pro-BdCn",Helvetica,Arial,sans-serif;
+    font-size: 14px;
+    font-weight: normal;
+    font-stretch: condensed;
+    color: #556879;
+    margin: 12px;
+    margin-bottom: 4px;
+    margin-top: 8px;
+}
+
+/* switch button container for single/ double stand */
+.canopy-config-menue .config-switch {
+    display: flex;
+    flex-direction: row;
+    padding: 2px;
+    padding-left: 3px;
+    padding-right: 3px;
+    border: 1px solid #556879;
+    background: #ffffff;
+    border-radius: 4px;
+    gap: 3px;
+    width: 185px;
+    margin: 10px;
+}
+
+/* configurator sidebar switch button input */
+.canopy-config-menue .config-switch input {
+    cursor: pointer;
+    position: absolute;
+    opacity: 0;
+}
+
+/* configurator sidebar switch button hover */
+.canopy-config-menue .config-switch label:hover input ~ .config-switch-button {
+    background: #E64011;
+}
+
+/* configurator sidebar switch button when active */
+.canopy-config-menue .config-switch input:checked ~ .config-switch-button {
+    background: #E64011;
+}
+
+/* configurator sidebar switch button text */
+.canopy-config-menue .config-switch label {
+    flex-grow: 1;
+}
+
+/* configurator sidebar switch button */
+.canopy-config-menue .config-switch .config-switch-button {
+    background: #556879;;
+    display: flex;
+    font-family: "Helvetica Neue LT Pro-MdCn",Helvetica,Arial,sans-serif;
+    font-size: 14px;
+    font-weight: normal;
+    font-stretch: condensed;
+    letter-spacing: 0px;
+    line-height: 26px;
+    padding: 0 2px;
+    border-radius: 3px;
+    color: #ffffff;
+    text-align: center;
+    height: 26px;
+    font-weight: normal;
+    cursor: pointer;
+    text-decoration: none;
+    justify-content: center;
+    text-decoration: none;
+}
+
+/* configurator sidebar switch button hover */
+.canopy-config-menue .config-switch div.config-switch-button:hover {
+    background: #E64011;
+}
+
+
+.canopy-config-menue .config-toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 43px;
+    height: 25px;
+}
+
+.canopy-config-menue .config-toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.canopy-config-menue .config-toggle-switch .config-switch-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ffffff;
+    -webkit-transition: .4s;
+    transition: .4s;
+    border: #556879 1px solid;
+}
+
+.canopy-config-menue .config-toggle-switch .config-switch-slider:before {
+    position: absolute;
+    content: "";
+    height: 19px;
+    width: 19px;
+    left: 2px;
+    bottom: 2px;
+    background-color: #556879;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+.canopy-config-menue .config-toggle-switch input:checked + .config-switch-slider:before {
+    -webkit-transform: translateX(18px);
+    -ms-transform: translateX(18px);
+    transform: translateX(18px);
+}
+
+.canopy-config-menue .config-toggle-switch .config-switch-slider.round {
+    border-radius: 34px;
+}
+
+.canopy-config-menue .config-toggle-switch .config-switch-slider:before {
+    border-radius: 50%;
+}
+
+.canopy-config-menue .config-toggle-switch input:checked + .config-switch-slider {
+    background-color: #e64011;
+    border: #E64011 1px solid;
+}
+
+.canopy-config-menue .config-toggle-switch input:checked + .config-switch-slider:before {
+    background-color: #ffffff;
+}
+
+/* header title for config menue modules */
+.canopy-config-menue .menue-title,
+.prefab-config-menue .menue-title {
+    font-family: "Helvetica Neue LT Pro-MdCn",Helvetica,Arial,sans-serif;
+    font-weight: normal;
+    font-stretch: condensed;
+    color: #043572;
+    font-size: 16px;
+    letter-spacing: 0;
+    margin: 0;
+    position: relative;
+    margin-right: 3px;
+}
+
+/* flex wrap for menue elements */
+.canopy-config-menue .config-menue-wrap {
+    display: flex;
+    flex-direction: row;
+    margin: 10px;
+    margin-top: 8px;
+    align-items: center;
+    text-align: center;
+    gap:3px;
+    margin-left: 12px;
+}
+
+.canopy-config-menue .config-optionbar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+/* horizontal line in menue */
+.canopy-config-menue hr {
+    border-top: 1px solid #556879;
+    width: 540px;
+    margin: 0;
+    align-self: center;
+}
+
+/* menue button style */
+.config-menue-wrap .config-menue-button {
+    background: #556879;;
+    display: flex;
+    font-family: Arial,sans-serif;
+    font-size: 20px;
+    line-height: 23px;
+    border-radius: 3px;
+    color: #ffffff;
+    text-align: center;
+    height: 26px;
+    width: 26px;
+    font-weight: normal;
+    cursor: pointer;
+    text-decoration: none;
+    justify-content: center;
+}
+.config-menue-wrap .config-menue-button:hover {
+    background: #E64011;
+}
+
+.config-menue-wrap .config-menue-button.plus {
+    line-height: 26px;
+}
+
+.config-menue-wrap .config-menue-button.minus {
+    line-height: 23px;
+}

@@ -1,0 +1,131 @@
+{
+  "type": "lr",
+  "doubleSided": true,
+  "depth": 120,
+  "rackGroups": [
+    {
+      "offsetX": 0,
+      "offsetZ": 0,
+      "units": [
+        {
+          "width": 220,
+          "height": 400,
+          "shelves": [
+            { "deck": "empty" },
+            { "deck": "empty" }
+          ]
+        },
+        {
+          "width": 220,
+          "height": 400,
+          "shelves": [
+            { "deck": "empty" },
+            { "deck": "empty" }
+          ]
+        },
+        {
+          "width": 220,
+          "height": 400,
+          "shelves": [
+            { "deck": "empty" },
+            { "deck": "empty" }
+          ]
+        },
+        {
+          "width": 220,
+          "height": 400,
+          "shelves": [
+            { "deck": "empty" },
+            { "deck": "empty" }
+          ]
+        },
+        {
+          "width": 220,
+          "height": 400,
+          "shelves": [
+            { "deck": "empty" },
+            { "deck": "empty" }
+          ]
+        },
+        {
+          "width": 220,
+          "height": 400,
+          "shelves": [
+            { "deck": "empty" },
+            { "deck": "empty" }
+          ]
+        },
+        {
+          "width": 110,
+          "height": 400,
+          "shelves": [
+            { "deck": "empty" },
+            { "deck": "empty" }
+          ]
+        }
+      ]
+    },
+    {
+      "offsetX": 0,
+      "offsetZ": 5,
+      "units": [
+        {
+          "width": 220,
+          "height": 400,
+          "shelves": [
+            { "deck": "empty" },
+            { "deck": "empty" }
+          ]
+        },
+        {
+          "width": 220,
+          "height": 400,
+          "shelves": [
+            { "deck": "empty" },
+            { "deck": "empty" }
+          ]
+        },
+        {
+          "width": 220,
+          "height": 400,
+          "shelves": [
+            { "deck": "empty" },
+            { "deck": "empty" }
+          ]
+        },
+        {
+          "width": 220,
+          "height": 400,
+          "shelves": [
+            { "deck": "empty" },
+            { "deck": "empty" }
+          ]
+        },
+        {
+          "width": 220,
+          "height": 400,
+          "shelves": [
+            { "deck": "empty" },
+            { "deck": "empty" }
+          ]
+        },
+        {
+          "width": 220,
+          "height": 400,
+          "shelves": [
+            { "deck": "empty" },
+            { "deck": "empty" }
+          ]
+        },
+        {
+          "width": 110,
+          "height": 400,
+          "shelves": [
+            { "deck": "empty" },
+            { "deck": "empty" }
+          ]
+        }
+      ]
+    }
+  ]
+}

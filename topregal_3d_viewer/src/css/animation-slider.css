@@ -1,0 +1,179 @@
+/* ANIMATION SLIDER */
+
+/* animation slider container */
+.slider-container {
+    position: absolute;
+    display: flex;
+    bottom: 5%;
+    width: 250px;
+    height: 0px;
+    left: 50%;
+    transform: translate(-50%, 0);
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0);
+    opacity: 1;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+    gap: 8px;
+    z-index: 4;
+}
+
+/* animation slider bar */
+#slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 28px;
+    outline: none;
+    border-radius: 16px;
+    border: solid 2px #556879;
+    background: white;
+    padding: 0;
+    padding-right: 4px;
+}
+
+/* mozilla firefox specific */
+@-moz-document url-prefix() {
+    #slider {
+        padding-left: 1px;
+        padding-right: 1px;
+    }
+}
+
+#slider.white {
+    background: #556879;
+}
+
+/* animation slider bar hover */
+#slider:hover {
+    opacity: 0.7;
+    cursor: pointer;
+}
+
+/* animation slider bar button */
+#slider::-webkit-slider-thumb {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background: #556879;
+    cursor: pointer;
+    border-radius: 50%;
+    border: 2px solid #556879;
+    margin: 2px;
+}
+
+/* animation slider bar button in white */
+#slider.white::-webkit-slider-thumb {
+    background: #ffffff;
+    border: #ffffff;
+}
+
+/* animation slider bar button FIREFOX */
+#slider::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    background: #556879;
+    cursor: pointer;
+    border-radius: 50%;
+    border: 2px solid #556879;
+    margin: 2px;
+}
+
+/* animation slider bar button in white FIREFOX */
+#slider.white::-moz-range-thumb {
+    background: #ffffff;
+    border: #ffffff;
+}
+
+/* animation slider bar button IE */
+#slider::-ms-thumb {
+    width: 20px;
+    height: 20px;
+    background: #556879;
+    cursor: pointer;
+    border-radius: 50%;
+    border: 2px solid #556879;
+    margin: 2px;
+}
+
+/* animation slider bar button in white IE */
+#slider.white::-ms-thumb {
+    background: #ffffff;
+    border: #ffffff;
+}
+
+/* animation slider play button */
+.slider-button {
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    width: 0px;
+    height: 0px;
+    border-style: solid;
+    border-width: 12px 0 12px 22px;
+    border-color: transparent transparent transparent #556879;
+    background-color: transparent;
+}
+
+/* animation slider play button hover */
+.slider-button:hover {
+    opacity: 0.7;
+    cursor: pointer;
+}
+
+/* animation slider pause button */
+.slider-button.paused {
+    width: 18px;
+    height: 24px;
+    border-style: double;
+    border-width: 0px 0px 0px 18px;
+    margin: 2px;
+}
+
+/* interactable animation buttons */
+.button {
+    border-radius: .5em;
+    width: auto;
+    height: auto;
+    padding: 0.5em;
+    border: 2px solid rgba(230, 64, 17, 1);
+    background: rgba(230, 64, 17, 1);
+    color: rgba(255, 255, 255, 255);
+    font-family: Helvetica, sans-serif;
+    font-size: 14px;
+    text-align: center;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* mouse over effect for interactable animation buttons */
+.button:hover {
+    background: rgba(255, 255, 255, 1);
+    color: rgba(4, 53, 114, 255);
+    border: 2px solid rgba(4, 53, 114, 255);
+}
+
+/* container for animation buttons */
+.button-container {
+    top: 0;
+    right: 1em;
+    padding-top: 2em;
+    width: 20em;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    text-align-last: justify;
+    gap: 1em;
+}
+
+/* ANIMATION SLIDER MENU */
+
+/* animation slider bar disabled */
+.disabled {
+    pointer-events: none;
+    opacity: 0.3;
+}

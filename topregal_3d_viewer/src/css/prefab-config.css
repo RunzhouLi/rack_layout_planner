@@ -1,0 +1,448 @@
+/* PREFAB CONFIGURATOR */
+
+.prefab-config-menue {
+    position: relative;
+    width: auto;
+    height: auto;
+    top: 0px;
+    background-color: #EDEFF1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    box-shadow: 0px 3px 3px #0000004D;
+    border-radius: 3px;
+    margin-bottom: 10px;
+    padding: 10px;
+    padding-top: 8px;
+    pointer-events: all;
+    opacity: 100%;
+}
+
+.prefab-config-menue.passive {
+    opacity: 50%;
+    pointer-events: none;
+}
+
+.prefab-config-menue hr {
+    border-top: 1px solid #556879;
+    width: 100%;
+    margin: 0;
+    align-self: center;
+}
+
+.prefab-config-menue .config-menue-textinput {
+    font-family: "Helvetica Neue LT Pro-MdCn",Helvetica,Arial,sans-serif;
+    font-size: 16px;
+    width: 55px;
+    border: 1px solid #566879;
+    border-radius: 4px;
+    padding: 0px;
+    color: #043572;
+    margin: 0;
+    text-align: center;
+    line-height: 16px;
+}
+
+.prefab-config-menue .config-menue-textinput-unit {
+    font-family: "Helvetica Neue LT Pro-MdCn", Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    position: absolute;
+    color: #043572;
+    height: 30px;
+    width: 32px;
+    left: 170px;
+    line-height: 30px;
+    margin: 0;
+}
+
+.prefab-config-menue input::-webkit-outer-spin-button,
+.prefab-config-menue input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.prefab-config-menue .config-optionbar {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.prefab-config-menue .menue-text {
+    font-family: "Helvetica Neue LT Pro-MdCn", Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    color: #556879;
+    left: 16px;
+    margin: 0;
+    font-stretch: condensed;
+}
+
+.prefab-config-menue .config-menue-text-wrap {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    gap: 8px;
+    padding-left: 20px;
+    margin-left: 4px;
+}
+
+.prefab-config-menue .config-menue-outer-wrap {
+    display: flex;
+    flex-direction: row;
+}
+
+.prefab-config-menue .menue-text::before {
+    position: absolute;
+    content: "";
+    width: 12px;
+    height: 16px;
+    background: url("../../img/icon-locked.svg");
+    transform: translateX(-20px);
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.prefab-config-menue .config-menue-img {
+    width: 90px;
+    height: 90px;
+    border-radius: 3px;
+    border: 1px solid #C3CAD0;
+    cursor: move;
+    background-size: auto 90% !important;
+    background-position-x: center !important;
+    background-position-y: center !important;
+    background-repeat: no-repeat !important;
+    background-color: white !important;
+}
+
+.prefab-config-menue .config-menue-img:hover {
+     border: #E64011 1px solid; 
+}
+
+.prefab-config-menue .config-menue-imgwrap {
+    display: block;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.prefab-config-menue .config-image-wrap {
+    display: flex;
+    gap: 10px;
+    flex-direction: row;
+    margin-top: 7px;
+}
+
+.prefab-config-menue .config-image-wrap figcaption {
+    font-family: "Helvetica Neue LT Pro-MdCn", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    color: #556879;
+    text-align: center;
+    margin-top: 2px;
+    font-stretch: condensed;
+}
+
+/* prefab config images */
+.prefab-config-menue .btn-wall, .prefab-drag-icon.btn-wall {
+    background: url("../../img/btn-wall-menu.svg");
+}
+.prefab-config-menue .btn-door, .prefab-drag-icon.btn-door {
+    background: url("../../img/btn-door-menu.svg");
+}
+.prefab-config-menue .btn-window, .prefab-drag-icon.btn-window {
+    background: url("../../img/btn-window-menu.svg");
+}
+.prefab-config-menue .btn-studio, .prefab-drag-icon.btn-studio {
+    background: url("../../img/btn-window-high-menu.svg");
+}
+.prefab-config-menue .btn-roof, .prefab-drag-icon.btn-roof {
+    background: url("../../img/btn-roof-menu.svg");
+}
+.prefab-config-menue .btn-roof-lamp, .prefab-drag-icon.btn-lamp {
+    background: url("../../img/btn-roof-lamp-menu.svg");
+}
+
+.prefab-config-menue .outer-view-btn {
+    background: url("../../img/cam-outer.svg");
+}
+.prefab-config-menue .inner-view-btn {
+    background: url("../../img/cam-inner.svg");
+}
+.prefab-config-menue .top-view-btn {
+    background: url("../../img/cam-top.svg");
+}
+.prefab-config-menue .side-view-btn {
+    background: url("../../img/cam-side.svg");
+}
+
+.prefab-config-container {
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 20px;
+    align-self: flex-start;
+    background-color: transparent;
+    position: relative;
+    top: 0;
+    width: 100%;
+}
+
+.prefab-config-menue .config-menue-inputwrap {
+    display: flex;
+    flex-direction: row;
+    margin-top: 18px;
+    margin-bottom: 18px;
+    margin-left: 4px;
+    text-align: center;
+    gap: 4px;
+}
+
+.prefab-config-menue .prefab-tooltip {
+    font-size: 12px;
+    text-align: center;
+    font-weight: bold;
+    line-height: 16px;
+    width: 16px;
+    height: 16px;
+    position: relative;
+    border-radius: 50%;
+    border: 1px solid #556879;
+    background-color: white;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    margin-left: 8px;
+    cursor: pointer;
+}
+
+.prefab-config-menue .prefab-tooltip:hover {
+    color: white;
+    background-color: #E64011;
+    border-color: #E64011;
+}
+
+.prefab-config-menue .prefab-tooltip-box {
+    position: absolute;
+    font-family: "Helvetica Neue LT Pro-MdCn", Helvetica, Arial, sans-serif;
+    font-size: 12px;
+    font-weight: normal;
+    border-radius: 4px;
+    border: 1px solid #E64011;
+    color:#556879;
+    background-color: white;
+    width: 300px;
+    height: auto;
+    left: 26px;
+    box-shadow: 0px 0px 4px #0000004D;
+    z-index: 30;
+    padding: 8px;
+    text-align: left;
+    pointer-events: none;
+    transform: translateY(-50%);
+    top: 50%;
+}
+
+.prefab-config-menue .prefab-tooltip-box:before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    position: absolute;
+    background-color: white;
+    left: -5px;
+    top: 50%;
+    -webkit-transform: translateY(-50%) rotate(-45deg);
+    -moz-transform: translateY(-50%) rotate(-45deg);
+    -ms-transform: translateY(-50%) rotate(-45deg);
+    transform: translateY(-50%) rotate(-45deg);
+    border-top: #E64011 solid 1px;
+    border-left: #E64011 solid 1px;
+}
+
+.prefab-config-menue .config-main-title {
+    font-family: "Helvetica Neue LT Pro-BdCn", Helvetica, Arial, sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    font-stretch: condensed;
+    color: #556879;
+    margin-bottom: 8px;
+}
+
+.prefab-config-menue .menue-title {
+    font-weight: bold;
+    align-self: center;
+}
+
+.prefab-drag-icon {
+    position: absolute;
+    width: 90px;
+    height: 90px;
+    z-index: 100;
+    border-radius: 3px;
+    border: 1px solid #C3CAD0;
+    background-size: auto 90% !important;
+    background-position-x: center !important;
+    background-position-y: center !important;
+    background-repeat: no-repeat !important;
+    background-color: white !important;
+}
+
+.config-menue-inputwrap .config-menue-button {
+    background: #556879;
+    display: flex;
+    font-family: Arial,sans-serif;
+    font-size: 20px;
+    line-height: 30px;
+    border-radius: 3px;
+    color: #ffffff;
+    text-align: center;
+    height: 30px;
+    width: 30px;
+    font-weight: normal;
+    cursor: pointer;
+    text-decoration: none;
+    justify-content: center;
+}
+
+.config-menue-inputwrap .config-menue-button:hover {
+    background: #E64011;
+}
+
+.config-menue-inputwrap .config-menue-button.plus {
+    line-height: 30px;
+}
+
+.config-menue-inputwrap .config-menue-button.minus {
+    line-height: 27px;
+}
+
+.raycast-delete-button {
+    font-family: "Helvetica Neue LT Pro-MdCn", Helvetica, Arial, sans-serif;
+    position: absolute;
+    width: 32px;
+    height: 32px;
+    color: #FFFFFF;
+    background-color:#556879;
+    border-radius: 50%;
+    font-family: Arial,sans-serif;
+    font-size: 20px;
+    line-height: 30px;
+    text-align: center;
+}
+
+.raycast-delete-button:hover {
+    background-color:#E64011;
+}
+
+.prefab-config-menue .camera-perspective-button {
+    display: flex;
+    flex-direction: row;
+    height: 25px;
+    font-size: 14px;
+    font-stretch: condensed;
+    font-weight: normal;
+    color: #ffffff;
+    line-height: 25px;
+    border-radius: 3px;
+    background-color: #556879;
+    margin-bottom: 5px;
+    padding-right: 7px;
+    padding-left: 2px;
+    cursor: pointer;
+}
+
+.prefab-config-menue .camera-perspective-button.active {
+    background-color: #E64011;
+}
+
+.prefab-config-menue .camera-perspective-button:hover {
+    background-color: #E64011;
+}
+
+.prefab-config-menue .camera-perspective-button div {
+    height: 16px;
+    width: 16px;
+    margin: 4px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.prefab-config-menue.coloredBG-box {
+    display: flex;
+    flex-direction: row;
+    text-align: left;
+    gap: 16px;
+    flex-wrap: wrap;
+    align-content: center;
+    width: 400px;
+    background-color: #FFF2CC;
+    margin-left: auto;
+}
+
+.prefab-config-menue .config-menue-infoimg {
+    min-width: 130px;
+    min-height: 130px;
+    align-content: center;
+    border: 1px solid #C3CAD0;
+    border-radius: 3px;
+    background: url("../../img/tooltip_outer.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.prefab-config-menue .config-menue-infoimg.inner-view{
+    background: url("../../img/tooltip_inner.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.prefab-config-menue .config-menue-infoimg::before {
+    position: absolute;
+    content: "";
+    width: 27px;
+    height: 28px;
+    background-color: black;
+    top: 10px;
+    left: 10px;
+    background: url("../../img/tooltip_icon.svg");
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.prefab-config-menue .config-menue-infotext {
+    font-family: "Helvetica Neue LT Pro-MdCn", Helvetica, Arial, sans-serif;
+    align-content: center;
+    font-size: 12px;
+    color: #556879;
+    width: auto;
+    font-stretch: condensed;
+}
+
+.prefab-config-menue .config-menue-infowrap {
+    display: flex;
+    flex-direction: row;
+    padding: 6px;
+    gap: 16px;
+}
+
+.measurement-text {
+    position: absolute;
+    width: auto;
+    background-color: #556879;
+    display: block;
+    text-align: left;
+    top: 50%;
+    transform: translate(0, -50%);
+    z-index: 20;
+    color: white;
+    border-radius: 4px;
+    font-size: 14px;
+    line-height: 12px;
+    font-weight: bold;
+    pointer-events: none;
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 6px;
+    transition: opacity 0.2s;
+}

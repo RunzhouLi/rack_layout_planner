@@ -1,0 +1,291 @@
+/* DEFAULT 3DVIEWER MENUE */
+
+/* sidebar for the configurator */
+.configurator3d {
+    position: absolute;
+    top: 0;
+    padding: 15px;
+    height: auto;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    text-align-last: justify;
+    background-color: #EDEFF1;
+    box-sizing: border-box;
+    z-index: 2;
+}
+
+/* configurator sidbar when closed */
+.closed {
+    height: 60px;
+    padding: 15px;
+}
+
+/* configurator sidebar headline container */
+.configurator3d .config-header {
+    position: relative;
+    display: flex;
+    margin-bottom: 2px;
+    border: 0;
+    font: inherit;
+    vertical-align: baseline;
+    text-decoration: none;
+    transition: opacity 0.5s;
+    cursor: pointer;
+}
+
+/* align icon when config menu is closed */
+.configurator3d.closed .config-header {
+    justify-content: left;
+}
+
+/* configurator sidebar headline when closed */
+.configurator3d .config-header.centered {
+    justify-content: center;
+}
+
+/* configurator sidebar headline */
+.configurator3d .config-header .h1 {
+    position: relative;
+    font-size: 18px;
+    color: #043572;
+    letter-spacing: .6px;
+    font-family: "Helvetica Neue LT Pro-BdCn",Helvetica,Arial,sans-serif;
+    margin-top: 6px;
+}
+
+/* configurator sidebar headline close button */
+.configurator3d .config-header-button {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    border: solid #556879;
+    border-width: 0 3.5px 3.5px 0;
+    padding: 3px;
+    transform: rotate(225deg);
+    -webkit-transform: rotate(225deg);
+    margin: 8px;
+    margin-top: 11px;
+    box-sizing: border-box;
+    transition: opacity 0.1s;
+    opacity: 1;
+    position: relative;
+}
+
+.configurator3d .config-header .closed {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    cursor: pointer;
+    border: solid #556879;
+    border-width: 0 3.5px 3.5px 0;
+    padding: 3px;
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    margin: 8px;
+    margin-top: 6px;
+    box-sizing: border-box;
+    transition: opacity 0.1s;
+    opacity: 1;
+    position: relative;
+}
+
+.configurator3d .config-header-button.opening {
+    opacity: 0;
+}
+
+/* configurator sidebar sub headline */
+.configurator3d .h2 {
+    font-size: 16px;
+    color: #043572;
+    letter-spacing: .6px;
+    font-family: "Helvetica Neue LT Pro-MdCn", Helvetica, Arial, sans-serif;
+    margin: 2px 0 5px;
+}
+
+/* configurator sidebar container */
+.configurator3d .config-content {
+    position: relative;
+    display: flex;
+    justify-content: flex-start;
+    padding: 0;
+    border: 0;
+    text-decoration: none;
+}
+
+/* configurator sidebar single element container */
+.config-container {
+    display: flex;
+    flex-direction: column;
+    background-color: #EDEFF1;
+    margin-top: 16px;
+    margin-bottom: 16px;
+    margin-left: 24px;
+    margin-right: 24px;
+    transition: opacity 0.5s;
+}
+
+/* configurator sidebar container for checkbox */
+.configurator3d .config-container .config-checkbox {
+    display: grid;
+    width: 30px;
+    height: 30px;
+    margin: 0;
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+/* configurator sidebar checkbox label */
+.configurator3d .config-container .config-label {
+    display: inline-block;
+    font-size: 16px;
+    color: #556879;
+    letter-spacing: .6px;
+    font-family: "Helvetica Neue LT Pro-BdCn", Helvetica, Arial, sans-serif;
+    padding-left: 37px;
+    text-decoration: none;
+    line-height: 34px;
+}
+
+/* configurator sidebar fake checkbox */
+.configurator3d .config-container .config-span {
+    position: relative;
+    display: block;
+    top: 0;
+    left: 0;
+    height: 32px;
+    width: 32px;
+    background-color: #ffffff;
+    border: solid 1px #556879;
+    border-radius: 2px;
+}
+
+/* configurator sidebar checkbox hover */
+.configurator3d .config-container .config-span:hover {
+    border: 1px solid #E64011;
+}
+
+/* configurator sidebar fake checkbox active */
+.configurator3d .config-container .config-checkbox:checked ~ .config-span::after {
+    position: absolute;
+    content: "";
+    width: 28px;
+    height: 28px;
+    background: url("../../img/haken.svg");
+    left: 5px;
+    bottom: 5px;
+}
+
+/* configurator sidebar switch button container */
+.configurator3d .config-switch {
+    display: flex;
+    flex-direction: row;
+    padding: 2px;
+    border: 1px solid #556879;
+    background: #ffffff;
+    border-radius: 3px;
+    gap: 2px;
+    width: fit-content;
+}
+
+/* configurator sidebar switch button input */
+.configurator3d .config-switch input {
+    cursor: pointer;
+    position: absolute;
+    opacity: 0;
+}
+
+/* configurator sidebar switch button hover */
+.configurator3d .config-switch label:hover input ~ .config-switch-button {
+    background: #E64011;
+}
+
+/* configurator sidebar switch button when active */
+.configurator3d .config-switch input:checked ~ .config-switch-button {
+    background: #E64011;
+}
+
+/* configurator sidebar switch button text */
+.configurator3d .config-switch label {
+    width: 100px;
+}
+
+/* configurator sidebar switch button */
+.configurator3d .config-switch .config-switch-button {
+    background: #556879;;
+    display: flex;
+    font-family: "Helvetica Neue LT Pro-MdCn", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    letter-spacing: .6px;
+    line-height: 30px;
+    padding: 0 2px;
+    border-radius: 3px;
+    color: #ffffff;
+    text-align: center;
+    height: 30px;
+    font-weight: normal;
+    cursor: pointer;
+    text-decoration: none;
+    justify-content: center;
+    text-decoration: none;
+}
+
+/* configurator sidebar switch button hover */
+.configurator3d .config-switch div.config-switch-button:hover {
+    background: #E64011;
+}
+
+/* configurator sidebar switch button hover */
+.options {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font: inherit;
+    vertical-align: baseline;
+    text-decoration: none;
+}
+
+/* configurator sidebar color palette container */
+.config-container .color-palette {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-content: center;
+    text-align-last: justify;
+    gap: 6px;
+    background-color: #EDEFF1;
+}
+
+/* configurator sidebar color palette button */
+.color-picker {
+    border-radius: 3px;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    color: rgba(255, 255, 255, 255);
+    font-family: Helvetica, sans-serif;
+    font-size: 14px;
+    text-align: center;
+    font-weight: bold;
+    cursor: pointer;
+    border: solid 1px #556879;
+}
+
+/* configurator sidebar color palette button hover */
+.color-picker:hover {
+    border: solid 1px #E64011;
+}
+
+/* additional class for hiding config menu */
+.hide {
+    opacity: 0;
+    display: none;
+    pointer-events: none;
+}

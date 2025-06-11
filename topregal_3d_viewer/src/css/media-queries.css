@@ -1,0 +1,60 @@
+/* MEDIA QUERIES */
+
+/* used on wide screens */
+@media screen and (max-width: 960px) and (orientation: portrait){
+    .configurator3d.closed .config-header {
+        margin-bottom: 0;
+    }
+
+    .configurator3d .config-header .h1.hide {
+        opacity: 0;
+        display: block;
+    }
+
+    .configurator3d.closed {
+        height: 60px;
+    }
+
+    .configurator3d .config-content {
+        flex-direction: column;
+    }
+
+    .configurator3d .config-switch {
+        flex-direction: column;
+    }
+
+    .annotation {
+        background: rgba(230, 64, 17, 1);
+    }
+
+    .annotation::after {
+        display: none;
+    }
+
+    .annotation:hover::after {
+        display: none;
+    }
+
+    .annotation:hover::before {
+        display: none;
+    }
+
+    .annotation-tooltip {
+        display: none;
+    }
+
+    .slider-container {
+        bottom: 15%;
+    }
+}
+
+/* used on wide screens */
+@media screen and (min-width: 300px) {
+    .configurator3d .config-switch label {
+        width: 100px;
+    }
+
+    .configurator3d .config-switch {
+        flex-direction: row;
+    }
+}
