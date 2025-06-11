@@ -74,65 +74,97 @@ function constructPR(scene, configurator, clonedObjects, sceneObject, loop) {
             const element = measurementObjs[index].domElement;
             element.remove();
         }
-    }
+    }    measurementObjs = [];
 
-    measurementObjs = [];
-
-    // add dynamic text for width
-    dynamicText = new dynText(scene, measurement, fontSize, totalWidth, 0.01, new Vector3(0-(standWidth/200), 0.01, totalWidth / 2 + 0.8), 0, -MathUtils.degToRad(90), "#556879", 1, null, " cm", loop, 0);
-    dynamicText.addText();
-    measurementObjs.push(dynamicText);
-
-    loop.updatables.push(dynamicText);
-
-    // Add depth measurements for each group with different depths
-    let depthMeasurements = new Map();
+    // Calculate each group's width and overall scene bounds
+    let groupWidths = [];
+    let minX = Infinity, maxX = -Infinity;
+    let minZ = Infinity, maxZ = -Infinity;
+    
     rackGroups.forEach(group => {
-        const depth = group.depth;
-        const doubleSided = group.doubleSided;
-        const key = `${depth}_${doubleSided}`;
+        let groupWidth = 0;
+        for (let unitIndex = 0; unitIndex < group.units.length; unitIndex++) {
+            groupWidth += (group.units[unitIndex].width + standWidth) / 100;
+        }
+        groupWidth += (standWidth / 100);
+        groupWidths.push(groupWidth);
         
-        if (!depthMeasurements.has(key)) {
-            let rackDepth, depthOffset;
-            
-            if (doubleSided) {
-                measurement = depth * 2 + 20;
-                rackDepth = (20 + depth * 2) / 100;
-                depthOffset = (20 + depth) / 200;
-            } else {
-                measurement = depth;
-                rackDepth = depth / 100;
-                depthOffset = 0;
-            }
-            
-            const dynamicText2 = new dynText(scene, measurement, fontSize, rackDepth, 0.01, new Vector3(-totalWidth / 2 - 0.8, 0.01, (group.offsetZ || 0) - depthOffset), -MathUtils.degToRad(90), 0, "#556879", 1, null, " cm", loop, 0);
-            dynamicText2.addText();
-            measurementObjs.push(dynamicText2);
-            loop.updatables.push(dynamicText2);
-            
-            depthMeasurements.set(key, true);
-        }
-    });    var increaseOffset = 0;
-    var heightArray = [];
-
-    rackGroups.forEach(group => {
-        for (let rackIndex = 0; rackIndex < group.units.length; rackIndex++) {
-            if ((configurator.startPostIncrease && rackIndex == 0) || (configurator.endPostIncrease && rackIndex == group.units.length-1 && !configurator.addOnRack)) {
-                increaseOffset = 50;
-            }
-            else increaseOffset = 0;
-
-            heightArray.push(group.units[rackIndex].height + increaseOffset);
-        }
+        // Calculate scene bounds
+        const groupMinX = (group.offsetX || 0) - groupWidth / 2;
+        const groupMaxX = (group.offsetX || 0) + groupWidth / 2;
+        const groupZ = (group.offsetZ || 0);
+        
+        minX = Math.min(minX, groupMinX);
+        maxX = Math.max(maxX, groupMaxX);
+        minZ = Math.min(minZ, groupZ);
+        maxZ = Math.max(maxZ, groupZ);
     });
 
+    // Add independent measurements for each rack group
+    rackGroups.forEach((group, groupIndex) => {
+        const groupWidth = groupWidths[groupIndex];
+        const groupOffsetX = group.offsetX || 0;
+        const groupOffsetZ = group.offsetZ || 0;
+        
+        // Group width measurement
+        const widthMeasurement = groupWidth * 100;
+        const groupCenterX = groupOffsetX;
+        const widthText = new dynText(scene, widthMeasurement, 48, groupWidth, 0.01, 
+            new Vector3(groupCenterX, 0.01, groupOffsetZ + (group.doubleSided ? (group.depth * 2 + 20) / 200 : group.depth / 200) + 0.8), 
+            0, -MathUtils.degToRad(90), "#556879", 1, `组${groupIndex + 1}`, " cm", loop, 0);
+        widthText.addText();
+        measurementObjs.push(widthText);
+        loop.updatables.push(widthText);
+        
+        // Group depth measurement
+        let depthMeasurement, rackDepth, depthOffset;
+        if (group.doubleSided) {
+            depthMeasurement = group.depth * 2 + 20;
+            rackDepth = (20 + group.depth * 2) / 100;
+            depthOffset = (20 + group.depth) / 200;
+        } else {
+            depthMeasurement = group.depth;
+            rackDepth = group.depth / 100;
+            depthOffset = 0;
+        }
+        
+        const depthText = new dynText(scene, depthMeasurement, 48, rackDepth, 0.01, 
+            new Vector3(groupCenterX - groupWidth/2 - 0.8, 0.01, groupOffsetZ - depthOffset), 
+            -MathUtils.degToRad(90), 0, "#556879", 1, `组${groupIndex + 1}`, " cm", loop, 0);
+        depthText.addText();
+        measurementObjs.push(depthText);
+        loop.updatables.push(depthText);
+        
+        // Group height measurement
+        const groupHeights = group.units.map(unit => unit.height);
+        const maxHeight = Math.max(...groupHeights);
+        const heightText = new dynText(scene, maxHeight, 48, maxHeight / 200 * 2, 0.01, 
+            new Vector3(groupCenterX + groupWidth/2 + 0.8, maxHeight/200 + 0.02, groupOffsetZ), 
+            0, 0, "#556879", 1, `组${groupIndex + 1}`, " cm", loop, 0);
+        heightText.addText();
+        measurementObjs.push(heightText);
+        loop.updatables.push(heightText);
+    });
+
+    // Add overall scene measurements (smaller, secondary)
+    measurement = totalWidth * 100;
+    dynamicText = new dynText(scene, measurement, 36, totalWidth, 0.01, new Vector3((minX + maxX) / 2, 0.01, maxZ + 1.2 + 1.5), 0, -MathUtils.degToRad(90), "#8899AA", 1, "总宽", " cm", loop, 0);
+    dynamicText.addText();
+    measurementObjs.push(dynamicText);
+    loop.updatables.push(dynamicText);
+
+    // Overall height measurement  
+    var heightArray = [];
+    rackGroups.forEach(group => {
+        for (let rackIndex = 0; rackIndex < group.units.length; rackIndex++) {
+            heightArray.push(group.units[rackIndex].height);
+        }
+    });
     measurement = Math.max.apply(null, heightArray);
 
-    // add dynamic text for height
-    dynamicText3 = new dynText(scene, measurement, fontSize, measurement / 200 * 2, 0.01, new Vector3(totalWidth / 2 + 0.8, measurement/200 + 0.02, 0), 0, 0, "#556879", 1, null, " cm", loop, 0);
+    dynamicText3 = new dynText(scene, measurement, 36, measurement / 200 * 2, 0.01, new Vector3(maxX + 1.5, measurement/200 + 0.02, (minZ + maxZ) / 2), 0, 0, "#8899AA", 1, "总高", " cm", loop, 0);
     dynamicText3.addText();
     measurementObjs.push(dynamicText3);
-
     loop.updatables.push(dynamicText3);
 
     // get outdoor material palette
