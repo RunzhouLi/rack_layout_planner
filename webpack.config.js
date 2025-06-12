@@ -21,13 +21,18 @@ module.exports = {
         serveIndex: false,
       }
     ],
-    host: 'localhost', // Ensure HMR client uses localhost instead of 0.0.0.0
-    port: 3000,
-    open: true,
-    hot: false,              // disable HMR to avoid eval in runtime
-    liveReload: true,
+    host: "0.0.0.0",          // 监听所有网卡
+    port: 3000,               // 端口
+    allowedHosts: 'all',      // 允许任意主机名访问
+    open: false,              // 不自动打开浏览器（服务器环境）
+    hot: true,                // 开启 HMR
+    liveReload: true,         // 启用 liveReload
     client: {
-      webSocketURL: 'ws://localhost:3000/ws', // override default ws address
+      webSocketURL: {
+//        hostname: '68.183.38.50',  // 你的公网 IP
+        port: 3000,
+        protocol: 'ws'
+      }
     },
   },
   module: {
