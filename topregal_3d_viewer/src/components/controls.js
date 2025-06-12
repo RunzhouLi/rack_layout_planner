@@ -6,30 +6,23 @@ import { Vector3 } from "three";
 function createControls(camera, renderer) {
     const controls = new OrbitControls(camera, renderer.domElement);
 
-    controls.minDistance = 2;
-    controls.maxDistance = 20;
-    controls.minPolarAngle = 0.1;
-    controls.maxPolarAngle = 1.58;
+    // 放宽距离与极角限制，使相机可以自由环绕
+    controls.minDistance = 1;
+    controls.maxDistance = 500;
+    controls.minPolarAngle = 0.1;             // 略高于竖直向上，防止极端抖动
+    controls.maxPolarAngle = Math.PI / 2;     // 仅能看到物体上方及水平，不可转到下方
+
     controls.target.set(0, 2.5, 0);
     controls.enablePan = true;
-    controls.panSpeed = 0.5;
-    controls.screenSpacePanning = false;
-    controls.autoRotate = true;
+    controls.panSpeed = 1.0;
+    controls.screenSpacePanning = true;
+    // 默认关闭自动旋转，可在 UI 中开启
+    controls.autoRotate = false;
     controls.autoRotateSpeed = 0.35;
     controls.enableDamping = true;
     controls.tick = () => controls.update();
 
-    // limit panning of the orbit controls
-    var minPan = new Vector3(-2, -2, -2);
-    var maxPan = new Vector3(2, 2, 2);
-    var _v = new Vector3();
-
-    controls.addEventListener("change", function() {
-        _v.copy(controls.target);
-        controls.target.clamp(minPan, maxPan);
-        _v.sub(controls.target);
-        camera.position.sub(_v);
-    });
+    // 可选：如需限制平移范围，可在此根据场景包围盒动态计算
 
     return controls;
 }
