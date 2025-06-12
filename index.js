@@ -1,4 +1,9 @@
 import './topregal_3d_viewer/src/css/viewer-classes.css';
+// import configurator styles
+import './topregal_3d_viewer/src/css/config-menue.css';
+import './topregal_3d_viewer/src/css/media-queries.css';
+import './topregal_3d_viewer/src/css/annotations.css';
+import './topregal_3d_viewer/src/css/animation-slider.css';
 import Engine from './topregal_3d_viewer/src/system/Engine.js';
 import { RackManager } from './topregal_3d_viewer/src/components/rack-manager.js';
 
@@ -56,5 +61,41 @@ engine.load(lampRackConfig)
     console.log('3D Viewer loaded successfully with rack management interface and warehouse scene');
     console.log(`当前仓库墙壁可见性模式: ${window.warehouseVisibilityMode ? '手动逻辑判断' : '自动视锥体剔除'}`);
     console.log('使用 toggleWarehouseVisibility() 函数切换可见性模式');
+
+    // Add collapse/expand functionality to the controls-panel
+    const controlsPanel = document.querySelector('.controls-panel');
+    if (controlsPanel) {
+        const panelHeader = controlsPanel.querySelector('h3');
+
+        if (panelHeader) {
+            const toggleBtn = document.createElement('button');
+            toggleBtn.className = 'panel-toggle-button';
+            toggleBtn.title = '展开/折叠面板';
+            toggleBtn.innerHTML = '▼';
+
+            panelHeader.style.display = 'flex';
+            panelHeader.style.justifyContent = 'space-between';
+            panelHeader.style.alignItems = 'center';
+            panelHeader.appendChild(toggleBtn);
+
+            const togglePanel = () => {
+                const isClosed = controlsPanel.classList.toggle('closed');
+                toggleBtn.innerHTML = isClosed ? '▶' : '▼';
+            };
+
+            toggleBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                togglePanel();
+            });
+
+            panelHeader.style.cursor = 'pointer';
+            panelHeader.addEventListener('click', (e) => {
+                if (e.target === panelHeader) {
+                    togglePanel();
+                }
+            });
+        }
+    }
   })
   .catch(e => console.error("模型加载失败:", e));

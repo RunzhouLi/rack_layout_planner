@@ -201,3 +201,86 @@ canvas {
     padding: 6px;
     transition: opacity 0.2s;
 }
+
+/* Styles for collapsible controls-panel */
+.panel-toggle-button {
+    background: #6c757d;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 24px;
+    height: 24px;
+    font-size: 14px;
+    line-height: 24px;
+    padding: 0;
+    text-align: center;
+    transition: background-color 0.2s;
+    flex-shrink: 0;
+}
+
+.panel-toggle-button:hover {
+    background: #545b62;
+}
+
+.controls-panel {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 8px;
+    padding: 8px 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+    min-width: 300px;
+    transition: all 0.3s ease;
+}
+
+.controls-panel h3 {
+    margin: 0;
+    color: #333;
+    font-size: 16px;
+    line-height: 1.2;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.control-group {
+    margin-top: 12px;
+}
+
+.control-group:first-of-type {
+    margin-top: 8px;
+}
+
+.control-group label {
+    display: block;
+    margin-bottom: 4px;
+    color: #666;
+    font-size: 14px;
+}
+
+.button-group {
+    display: flex;
+    gap: 10px;
+    margin-top: 12px;
+}
+
+.controls-panel.closed {
+    width: auto;
+    padding: 8px 12px;
+    min-height: unset;
+    height: fit-content;
+}
+
+.controls-panel.closed > *:not(h3) {
+    display: none;
+}
+
+/* 调整折叠状态下的标题样式 */
+.controls-panel.closed h3 {
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.2;
+}

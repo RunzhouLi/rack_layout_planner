@@ -147,13 +147,36 @@ function createConfigurator(colors, scene, animations, appClassName, backgroundC
         }
     };
 
+    // 默认折叠状态
+    headerClose.closed = true;
+    configContainer.classList.add("closed");
+    headerClose.classList.add("closed");
+    headerInfobox.classList.add("boxClosed");
+
+    // 添加折叠/展开按钮
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("toggle-button");
+    toggleBtn.innerText = "▶";
+    toggleBtn.title = "展开/折叠面板";
+    toggleBtn.addEventListener("click", function(e) {
+        e.stopPropagation();
+        toggleMenu(configContainer, headerClose, headerTitle, headerInfobox);
+    });
+    // 将 toggleBtn 添加到 appContainer，保证不被 configContainer overflow 隐藏
+    appContainer.appendChild(toggleBtn);
+
+    // 初始隐藏内容区域（跳过 toggleBtn）
+    for (var i = 1; i < configContainer.children.length; i++){
+        if (configContainer.children[i] !== toggleBtn) {
+            configContainer.children[i].classList.add("hide");
+        }
+    }
+
+    // 改进点击行为 - 整个头部区域都可点击
+    header.style.cursor = "pointer";
     header.addEventListener('click', function() {
         toggleMenu(configContainer, headerClose, headerTitle, headerInfobox);
     });
-
-    // always close menu on start
-    headerClose.closed = false;
-    toggleMenu(configContainer, headerClose, headerTitle, headerInfobox);
 
     // append all elements to the app
     appContainer.appendChild(configContainer);
@@ -195,27 +218,38 @@ function changeSliderColor(animations, slider, sliderButton, color, scene, toolt
 
 // close/open the configuration side bar
 function toggleMenu(configContainer, headerClose, headerTitle, headerInfobox) {
+    const toggleBtn = configContainer.querySelector('.toggle-button');
     if (!headerClose.closed) {        
         // close menue
-        for (var i = 1; i < configContainer.children.length; i++){
-            configContainer.children[i].classList.add("hide");
-        }
-        // headerTitle.classList.add("hide");
+        toggleChildrenVisibility(configContainer, toggleBtn, true);
         configContainer.classList.add("closed");
         headerClose.classList.add("closed");
         headerInfobox.classList.add("boxClosed");
         headerClose.closed = true;
-
     } else {
         // open menue
-        for (var i = 1; i < configContainer.children.length; i++){
-            configContainer.children[i].classList.remove("hide");
-        }
-        headerTitle.classList.remove("hide");
         configContainer.classList.remove("closed");
         headerClose.classList.remove("closed");
         headerInfobox.classList.remove("boxClosed");
         headerClose.closed = false;
+        // 延迟显示内容，等待过渡动画完成
+        setTimeout(() => {
+            toggleChildrenVisibility(configContainer, toggleBtn, false);
+            headerTitle.classList.remove("hide");
+        }, 300);
+    }
+}
+
+// Helper function to toggle visibility of configContainer children
+function toggleChildrenVisibility(configContainer, excludeElement, hide) {
+    for (var i = 1; i < configContainer.children.length; i++) {
+        if (configContainer.children[i] !== excludeElement) {
+            if (hide) {
+                configContainer.children[i].classList.add("hide");
+            } else {
+                configContainer.children[i].classList.remove("hide");
+            }
+        }
     }
 }
 

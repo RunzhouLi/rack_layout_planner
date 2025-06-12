@@ -173,7 +173,7 @@
     content: "";
     width: 28px;
     height: 28px;
-    background: url("../../img/haken.svg");
+    background: url("../img/haken.svg");
     left: 5px;
     bottom: 5px;
 }
@@ -288,4 +288,81 @@
     opacity: 0;
     display: none;
     pointer-events: none;
+}
+
+/* 配置面板折叠时的样式优化 */
+.configurator3d.closed {
+    width: 40px;
+    transition: width 0.3s ease;
+    overflow: hidden;
+    opacity: 0.85;
+    height: 60px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 10px;
+    border-radius: 0 0 8px 0;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+}
+
+.configurator3d.closed:hover {
+    opacity: 1;
+}
+
+/* 当菜单关闭时，确保头部按钮位置正确 */
+.configurator3d.closed .config-header {
+    width: 40px;
+    justify-content: center;
+    margin-bottom: 0;
+}
+
+.configurator3d.closed .config-header-button {
+    margin: 4px;
+    transform: rotate(45deg);
+    transition: transform 0.3s ease;
+}
+
+/* 展开配置面板的指示图标 */
+.config-expand-indicator {
+    color: #556879;
+    transition: transform 0.3s ease;
+}
+
+.configurator3d.closed .config-expand-indicator {
+    transform: rotate(180deg);
+}
+
+/* 确保内容在折叠状态下不可见 */
+.configurator3d.closed .config-content {
+    display: none;
+}
+
+/* toggle button for closing/opening configurator */
+.toggle-button {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 24px;
+    height: 24px;
+    background-color: #556879;
+    border: none;
+    border-radius: 4px;
+    color: #ffffff;
+    cursor: pointer;
+    text-align: center;
+    line-height: 24px;
+    transition: background-color 0.3s;
+    z-index: 99;
+}
+
+.toggle-button:hover {
+    background-color: #E64011;
+}
+
+.toggle-button::before {
+    content: '▼';
+    font-size: 14px;
+    display: block;
+    line-height: 24px;
 }
