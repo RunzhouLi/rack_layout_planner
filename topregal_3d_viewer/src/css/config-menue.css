@@ -359,10 +359,3 @@
 .toggle-button:hover {
     background-color: #E64011;
 }
-
-.toggle-button::before {
-    content: '▼';
-    font-size: 14px;
-    display: block;
-    line-height: 24px;
-}

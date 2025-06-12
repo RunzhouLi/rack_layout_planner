@@ -227,27 +227,35 @@ canvas {
     position: absolute;
     top: 20px;
     left: 20px;
-    background: rgba(255, 255, 255, 0.95);
-    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.9);
     padding: 8px 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    z-index: 1000;
-    min-width: 300px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 300px;
     transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 40px);
+    max-height: calc(100vh - 40px);
+    box-sizing: border-box;
 }
 
+/* 标题统一样式（折叠/展开一致） */
 .controls-panel h3 {
     margin: 0;
-    color: #333;
+    padding: 0; /* 内边距统一为 0，由面板自身 padding 控制 */
     font-size: 16px;
     line-height: 1.2;
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: center; /* 文字居中 */
+    position: relative; /* 供绝对定位的按钮参考 */
+    height: 24px; /* 与按钮高度一致，保持垂直居中 */
 }
 
 .control-group {
     margin-top: 12px;
+    flex-shrink: 0;
 }
 
 .control-group:first-of-type {
@@ -267,20 +275,115 @@ canvas {
     margin-top: 12px;
 }
 
-.controls-panel.closed {
-    width: auto;
-    padding: 8px 12px;
-    min-height: unset;
-    height: fit-content;
+.controls-panel-content {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-right: 8px;
+    margin-bottom: 0;
 }
 
-.controls-panel.closed > *:not(h3) {
+.controls-panel-content::-webkit-scrollbar {
+    width: 6px;
+}
+
+.controls-panel-content::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 3px;
+}
+
+.controls-panel-content::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+}
+
+.controls-panel-content::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.controls-panel.closed {
+    width: 200px;
+}
+
+.controls-panel.closed .controls-panel-content {
     display: none;
 }
 
-/* 调整折叠状态下的标题样式 */
-.controls-panel.closed h3 {
+/* Toggle button styles (unified) */
+.toggle-button {
+    background: #6c757d;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 24px;
+    height: 24px;
+    font-size: 14px;
+    line-height: 24px;
+    padding: 0;
+    text-align: center;
+    transition: background-color 0.2s;
+    flex-shrink: 0;
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 2000;
+}
+
+.toggle-button:hover {
+    background: #545b62;
+}
+
+/* Layout improvements for dynamic rack list height */
+.controls-panel-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.controls-panel-content .control-group:last-child {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.rack-list {
+    flex: 1 1 auto;
+    overflow-y: auto;
+    max-height: 100%;
+}
+
+/* 确保body和html占满整个视口，避免滚动 */
+html, body {
     margin: 0;
-    font-size: 16px;
-    line-height: 1.2;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+/* 确保app容器占满整个视口 */
+#app {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* 自定义滚动条样式 */
+.controls-panel > *:not(h3)::-webkit-scrollbar {
+    width: 6px;
+}
+
+.controls-panel > *:not(h3)::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 3px;
+}
+
+.controls-panel > *:not(h3)::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+}
+
+.controls-panel > *:not(h3)::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.3);
 }

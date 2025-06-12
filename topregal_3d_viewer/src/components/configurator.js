@@ -162,8 +162,8 @@ function createConfigurator(colors, scene, animations, appClassName, backgroundC
         e.stopPropagation();
         toggleMenu(configContainer, headerClose, headerTitle, headerInfobox);
     });
-    // 将 toggleBtn 添加到 appContainer，保证不被 configContainer overflow 隐藏
-    appContainer.appendChild(toggleBtn);
+    // 将 toggleBtn 添加到 configContainer，使其随面板移动
+    configContainer.appendChild(toggleBtn);
 
     // 初始隐藏内容区域（跳过 toggleBtn）
     for (var i = 1; i < configContainer.children.length; i++){
@@ -220,12 +220,13 @@ function changeSliderColor(animations, slider, sliderButton, color, scene, toolt
 function toggleMenu(configContainer, headerClose, headerTitle, headerInfobox) {
     const toggleBtn = configContainer.querySelector('.toggle-button');
     if (!headerClose.closed) {        
-        // close menue
+        // close menu
         toggleChildrenVisibility(configContainer, toggleBtn, true);
         configContainer.classList.add("closed");
         headerClose.classList.add("closed");
         headerInfobox.classList.add("boxClosed");
         headerClose.closed = true;
+        if (toggleBtn) toggleBtn.innerText = "▶";
     } else {
         // open menue
         configContainer.classList.remove("closed");
@@ -237,6 +238,7 @@ function toggleMenu(configContainer, headerClose, headerTitle, headerInfobox) {
             toggleChildrenVisibility(configContainer, toggleBtn, false);
             headerTitle.classList.remove("hide");
         }, 300);
+        if (toggleBtn) toggleBtn.innerText = "▼";
     }
 }
 
