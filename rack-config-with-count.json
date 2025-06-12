@@ -1,0 +1,74 @@
+{
+  "type": "lr",
+  "rackGroups": [
+    {
+      "doubleSided": true,
+      "depth": 120,
+      "offsetX": 0,
+      "offsetZ": 0,
+      "units": [
+        {
+          "width": 220,
+          "height": 400,
+          "count": 17,
+          "shelves": [
+            { "deck": "empty" },
+            { "deck": "empty" }
+          ]
+        }
+      ]
+    },
+    {
+      "doubleSided": true,
+      "depth": 120,
+      "offsetX": 0,
+      "offsetZ": 5,
+      "units": [
+        {
+          "width": 220,
+          "height": 400,
+          "count": 17,
+          "shelves": [
+            { "deck": "empty" },
+            { "deck": "empty" }
+          ]
+        }
+      ]
+    },
+    {
+      "doubleSided": false,
+      "depth": 80,
+      "offsetX": 0,
+      "offsetZ": 10,
+      "units": [
+        {
+          "width": 110,
+          "height": 400,
+          "count": 3,
+          "shelves": [
+            { "deck": "empty" },
+            { "deck": "empty" }
+          ]
+        },
+        {
+          "width": 220,
+          "height": 400,
+          "count": 4,
+          "shelves": [
+            { "deck": "empty" },
+            { "deck": "empty" }
+          ]
+        },
+        {
+          "width": 110,
+          "height": 400,
+          "count": 2,
+          "shelves": [
+            { "deck": "empty" },
+            { "deck": "empty" }
+          ]
+        }
+      ]
+    }
+  ]
+}
